@@ -8,8 +8,8 @@ import 'package:pitch_detector_dart/pitch_detector.dart';
 import 'package:tuner_poc/tuning_data.dart';
 import 'package:tuner_poc/tuning_result.dart';
 
-const sampleRate = 44100;
-const bufferSize = 2048;
+const double sampleRate = 44100;
+const int bufferSize = 2048;
 
 void main() {
   runApp(const MainApp());
@@ -24,7 +24,8 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   final _recorder = FlutterAudioCapture();
-  final _pitchDetector = PitchDetector();
+  final _pitchDetector =
+      PitchDetector(audioSampleRate: sampleRate, bufferSize: bufferSize);
 
   bool? _recordInitResult = false;
   TuningData _tuningData = tunings[0];
@@ -102,7 +103,7 @@ class _MainAppState extends State<MainApp> {
     await _recorder.start(
       _audioListener,
       _onError,
-      sampleRate: sampleRate,
+      sampleRate: sampleRate as int,
       bufferSize: bufferSize,
     );
 
